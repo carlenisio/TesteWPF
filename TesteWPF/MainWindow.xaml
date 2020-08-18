@@ -1,0 +1,127 @@
+﻿<Window x:Class="TesteWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TesteWPF"
+        mc:Ignorable="d"
+        Title="TesteWpf" Height="500" Width="525" Background="SkyBlue">
+
+    <Window.Resources>
+        <ControlTemplate x:Key="btnTemplate" TargetType="Button">
+            <Grid>
+                <Rectangle RadiusX="5" RadiusY="5" Fill="Aquamarine">
+                </Rectangle>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+            </Grid>
+        </ControlTemplate>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"></Setter>
+        </Style>
+        <Style x:Key="tbkStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="Panel" Grid.Column="0">
+            <TextBlock FontSize="18" FontWeight="Bold"><Run Text="Lista de "/><Run Text="Analistas"/></TextBlock>
+            <ListView x:Name="analistasListView" Margin="0,10,0,0" Background="Transparent" Height="400" ScrollViewer.CanContentScroll="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource tbkStyle}">
+                                <TextBlock.Inlines>
+                                    <Run Text="Nome : "></Run>
+                                    <Run Text="{Binding nome}"></Run>
+                                </TextBlock.Inlines>
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource tbkStyle}">
+                                <TextBlock.Inlines>
+                                    <Run Text="ID : "></Run>
+                                    <Run Text="{Binding id}"></Run>
+                                </TextBlock.Inlines>
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource tbkStyle}">
+                                <TextBlock.Inlines>
+                                    <Run Text="Gênero : "></Run>
+                                    <Run Text="{Binding genero}"></Run>
+                                </TextBlock.Inlines>
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource tbkStyle}">
+                                <TextBlock.Inlines>
+                                    <Run Text="Idade : "></Run>
+                                    <Run Text="{Binding idade}"></Run>
+                                    <LineBreak/>
+                                </TextBlock.Inlines>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="10,0,0,0">
+                <TextBlock FontSize="18" FontWeight="Bold"><Run Text="Adiciona ou Atualiza um "/><Run Text="Analista"/></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Text="Nome" Width="75"></TextBlock>
+                    <TextBox x:Name="txtNome" Margin="10,0,0,0" Width="200"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Text="Sobrenome" Width="75"></TextBlock>
+                    <TextBox x:Name="txtSobreNome" Margin="10,0,0,0" Width="200"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0" RenderTransformOrigin="0.546,0.611">
+                    <TextBlock Text="Telefone" Width="75"></TextBlock>
+                    <TextBox x:Name="txtTelefone" Margin="10,0,0,0" Width="111"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button x:Name="btnNovo" Template="{StaticResource btnTemplate}" Content=" Adiciona um Analista " Margin="0,0,10,0" Click="btnNovo_Click"></Button>
+                    <Button x:Name="btnAtualiza" Template="{StaticResource btnTemplate}" Content=" Atualiza um Analista " Click="btnAtualiza_Click"></Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Margin="10,0,0,0">
+                <TextBlock FontSize="18" FontWeight="Bold"><Run Text="Obtém ou Deleta um "/><Run Text="Analista"/></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Width="150"><Run Text="Informe o Id do "/><Run Text="Analista"/></TextBlock>
+                    <TextBox x:Name="txtID" InputScope="Number" Margin="10,0,0,0" Width="100"></TextBox>
+                </StackPanel>
+
+                <StackPanel x:Name="analistaDetalhesPanel" Margin="10,0,0,0" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Text="Nome :" Width="75"></TextBlock>
+                        <TextBlock x:Name="txbDetalheNome" Text="{Binding nome}" Margin="10,0,0,0" Width="200"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Text="ID : " Width="75"></TextBlock>
+                        <TextBlock x:Name="txbDetalheID" Margin="10,0,0,0" Text="{Binding id}" Width="200"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Text="Gênero : " Width="75"></TextBlock>
+                        <TextBlock x:Name="txtDetalheSobreNome" Margin="10,0,0,0" Text="{Binding sobrenome}" Width="200"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Text="Idade : " Width="75"></TextBlock>
+                        <TextBlock x:Name="txtDetalheTelefone" InputScope="Number" Margin="10,0,0,0" Width="200" Text="{Binding telefone}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button x:Name="btnGetAnalista" Template="{StaticResource btnTemplate}" Content=" Obtém um Analista " Margin="0,0,10,0" Click="btnGetAnalista_Click"></Button>
+                    <Button x:Name="btnDelet" Template="{StaticResource btnTemplate}" Content=" Deleta um Analista " Click="btnDelet_Click"></Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
